@@ -565,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: mouseSensitivity
-      value: 2
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: leanSpaceDistance
@@ -575,15 +575,54 @@ PrefabInstance:
       propertyPath: leanRotationDegree
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      propertyPath: sensitivityMultiplier
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8931010575391904959, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1813300462651136048, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1476493288457683321, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 768819686}
   m_SourcePrefab: {fileID: 100100000, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+--- !u!1 &768819679 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1476493288457683321, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+  m_PrefabInstance: {fileID: 756982424}
+  m_PrefabAsset: {fileID: 0}
+--- !u!143 &768819686
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768819679}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.49999988
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1120204733
 GameObject:
   m_ObjectHideFlags: 0
