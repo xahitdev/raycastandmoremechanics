@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [Header("MOVING AND LOOKING")]
     [Space]
@@ -15,7 +15,12 @@ public class PlayerController : MonoBehaviour
 
     private float xRotation = 0f; // Current x rotation for the camera
 
-    private Rigidbody rb; // Reference to the Rigidbody component
+    private CharacterController characterController; // Reference to the characterController component
+    private bool isGrounded = false;
+    [SerializeField] private Vector3 velocity;
+    [SerializeField] private float jumpHeight;
+    public float gravity = -9.81f;
+    [SerializeField] private float sensitivityMultiplier;
 
     [Header("LEANING RIGHT AND LEFT")]
     [Space]
@@ -45,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor to the center of the screen
         Cursor.visible = false; // Hide cursor
     }
@@ -68,23 +73,47 @@ public class PlayerController : MonoBehaviour
 
     private void Moving()
     {
-        // Mouse look
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        // Check if the player is grounded
+        isGrounded = characterController.isGrounded;
 
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;  // Small downward force to keep grounded
+        }
+
+        // Get input for movement
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+
+        // Calculate movement direction relative to the player's orientation
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        // Move the player
+        characterController.Move(move * speed * Time.deltaTime);
+
+        // Jumping
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        // Apply gravity
+        velocity.y += gravity * Time.deltaTime;
+
+        // Move the player downward due to gravity
+        characterController.Move(velocity * Time.deltaTime);
+        // Get mouse input
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * sensitivityMultiplier;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * sensitivityMultiplier;
+
+        // Rotate the player horizontally
+        transform.Rotate(Vector3.up * mouseX);
+
+        // Rotate the camera vertically
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
-
-        // Movement
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-        Vector3 moveDirection = playerBody.transform.TransformDirection(movement); // Transform direction relative to the player's rotation
-        rb.velocity = new Vector3(moveDirection.x * speed, rb.velocity.y, moveDirection.z * speed);
-
     }
 
     //   _      ______          _   _ _____ _   _  _____ 

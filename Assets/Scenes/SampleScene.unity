@@ -499,6 +499,14 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
+    - target: {fileID: 3706261744407566323, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: c200abf99e9fdd848b3ce9a5a0a897b1, type: 2}
+    - target: {fileID: 3706261744407566323, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      propertyPath: m_ProvidesContacts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6018206902545872305, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: m_ReceiveShadows
       value: 1
@@ -544,6 +552,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      propertyPath: speed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: wall.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -553,7 +565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: mouseSensitivity
-      value: 400
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8413531282109566027, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: leanSpaceDistance
@@ -866,7 +878,7 @@ GameObject:
   - component: {fileID: 1968193589}
   - component: {fileID: 1968193588}
   - component: {fileID: 1968193587}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
