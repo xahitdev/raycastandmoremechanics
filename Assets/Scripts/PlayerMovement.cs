@@ -177,17 +177,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Crouching()
     {
-        if (Input.GetKeyDown(crouchKey) && !isCrouching)
+        if (Input.GetKey(crouchKey) && !isCrouching)
         {
-            playerToCrouch.GetComponent<CapsuleCollider>().height = crouchedHeight;
+            playerToCrouch.GetComponent<CharacterController>().height = Mathf.Lerp(playerHeight, crouchedHeight, 0.2f);
+            // speed = speed / 2;
             isCrouching = true;
         }
-        else if (Input.GetKeyDown(crouchKey) && isCrouching)
+        else if (Input.GetKey(crouchKey) && isCrouching)
         {
-            playerToCrouch.GetComponent<CapsuleCollider>().height = playerHeight;
+            playerToCrouch.GetComponent<CharacterController>().height = Mathf.Lerp(crouchedHeight, playerHeight, 0.2f);
+            // speed = speed * 2;
             isCrouching = false;
         }
-
     }
 
     //   _____ _   _ _______ ______ _____            _____ _______ _____ ____  _   _ 
