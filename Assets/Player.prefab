@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 6018206902545872305}
   - component: {fileID: 3706261744407566323}
   - component: {fileID: 8413531282109566027}
-  - component: {fileID: 1813300462651136048}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -126,41 +125,25 @@ MonoBehaviour:
   mouseSensitivity: 100
   playerBody: {fileID: 6509471077571811339}
   playerCamera: {fileID: 7605366139106321043}
+  velocity: {x: 0, y: 0, z: 0}
+  jumpHeight: 0
+  gravity: -9.81
+  sensitivityMultiplier: 0
   leanLeftKey: 113
   leanRightKey: 101
   leanPivot: {fileID: 1817733746636793593}
   leanRotationDegree: 30
+  wall:
+    serializedVersion: 2
+    m_Bits: 0
+  leanSpaceDistance: 0
   playerToCrouch: {fileID: 6509471077571811339}
   crouchKey: 306
   playerHeight: 2
   crouchedHeight: 1
---- !u!54 &1813300462651136048
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476493288457683321}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  crouchSpeed: 0
+  InteractionKey: 0
+  playerInteractionDistance: 0
 --- !u!1 &4111601064594288988
 GameObject:
   m_ObjectHideFlags: 0

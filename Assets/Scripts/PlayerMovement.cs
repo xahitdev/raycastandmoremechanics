@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private KeyCode crouchKey;
     [SerializeField] private float playerHeight;
     [SerializeField] private float crouchedHeight;
+    [SerializeField] private float crouchSpeed;
     private bool isCrouching = false;
 
     [Header("Interaction")]
@@ -177,18 +178,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void Crouching()
     {
-        if (Input.GetKey(crouchKey) && !isCrouching)
+        if (Input.GetKeyDown(crouchKey))
         {
-            playerToCrouch.GetComponent<CharacterController>().height = Mathf.Lerp(playerHeight, crouchedHeight, 0.2f);
-            // speed = speed / 2;
-            isCrouching = true;
+            isCrouching = !isCrouching;
         }
-        else if (Input.GetKey(crouchKey) && isCrouching)
-        {
-            playerToCrouch.GetComponent<CharacterController>().height = Mathf.Lerp(crouchedHeight, playerHeight, 0.2f);
-            // speed = speed * 2;
-            isCrouching = false;
-        }
+        float targetHeight = isCrouching ? crouchedHeight : playerHeight;
+        float currentHeight = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * crouchSpeed);
+
+        characterController.height = currentHeight;
+        characterController.center = new Vector3(0, currentHeight / 2, 0);
     }
 
     //   _____ _   _ _______ ______ _____            _____ _______ _____ ____  _   _ 
