@@ -180,13 +180,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(crouchKey))
         {
-            isCrouching = !isCrouching;
-        }
-        float targetHeight = isCrouching ? crouchedHeight : playerHeight;
-        float currentHeight = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * crouchSpeed);
+            if (!isCrouching)
+            {
+                float targetHeight = isCrouching ? crouchedHeight : playerHeight;
+                float currentHeight = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * crouchSpeed);
 
-        characterController.height = currentHeight;
-        characterController.center = new Vector3(0, currentHeight / 2, 0);
+                characterController.height = currentHeight;
+                characterController.center = new Vector3(0, currentHeight / 2, 0);
+                isCrouching = true;
+            }
+            else if (isCrouching)
+            {
+                //standing UP code
+            }
+        }
     }
 
     //   _____ _   _ _______ ______ _____            _____ _______ _____ ____  _   _ 
