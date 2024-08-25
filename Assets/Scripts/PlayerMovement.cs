@@ -1,4 +1,5 @@
 using System;
+using Unity.PlasticSCM.Editor.WebApi;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -9,18 +10,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("MOVING AND LOOKING")]
     [Space]
     [SerializeField] private float speed = 10f; // Movement speed
-    public float mouseSensitivity = 100f; // Mouse sensitivity
     public Transform playerBody; // Reference to the player's body (to rotate)
-    public Transform playerCamera; // Reference to the camera (to rotate)
-
-    private float xRotation = 0f; // Current x rotation for the camera
 
     private CharacterController characterController; // Reference to the characterController component
     private bool isGrounded = false;
     [SerializeField] private Vector3 velocity;
     [SerializeField] private float jumpHeight;
     public float gravity = -9.81f;
-    [SerializeField] private float sensitivityMultiplier;
 
     [Header("LEANING RIGHT AND LEFT")]
     [Space]
@@ -41,6 +37,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerHeight;
     [SerializeField] private float crouchedHeight;
     [SerializeField] private float crouchSpeed;
+    [SerializeField] private float crouchedPlayerSpeed;
+    [SerializeField] private float standPlayerSpeed;
     private bool isCrouching = false;
 
     [Header("Interaction")]
@@ -52,8 +50,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked; // Lock cursor to the center of the screen
-        Cursor.visible = false; // Hide cursor
     }
 
     void Update()
@@ -103,18 +99,6 @@ public class PlayerMovement : MonoBehaviour
 
         // Move the player downward due to gravity
         characterController.Move(velocity * Time.deltaTime);
-        // Get mouse input
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * sensitivityMultiplier;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * sensitivityMultiplier;
-
-        // Rotate the player horizontally
-        transform.Rotate(Vector3.up * mouseX);
-
-        // Rotate the camera vertically
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 
     //   _      ______          _   _ _____ _   _  _____ 
@@ -180,20 +164,17 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(crouchKey))
         {
-            if (!isCrouching)
-            {
-                float targetHeight = isCrouching ? crouchedHeight : playerHeight;
-                float currentHeight = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * crouchSpeed);
-
-                characterController.height = currentHeight;
-                characterController.center = new Vector3(0, currentHeight / 2, 0);
-                isCrouching = true;
-            }
-            else if (isCrouching)
-            {
-                //standing UP code
-            }
+            isCrouching = !isCrouching;
         }
+        //CROUCHED SPEED MODIFIER
+
+        speed = isCrouching ? crouchedPlayerSpeed : standPlayerSpeed;
+
+        //CROUCING MANAGER
+
+        float targetHeight = isCrouching ? crouchedHeight : playerHeight;
+        float currentHeight = Mathf.Lerp(characterController.height, targetHeight, Time.deltaTime * crouchSpeed);
+        characterController.height = currentHeight;
     }
 
     //   _____ _   _ _______ ______ _____            _____ _______ _____ ____  _   _ 
