@@ -463,6 +463,10 @@ PrefabInstance:
       value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 3706261744407566323, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706261744407566323, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: c200abf99e9fdd848b3ce9a5a0a897b1, type: 2}
@@ -568,6 +572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1550824882990032601, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
+    - {fileID: 3706261744407566323, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5033649083784646070, guid: 9566ef28861d6f34287e6a15244e6380, type: 3}
     m_AddedGameObjects: []
@@ -631,6 +636,7 @@ MonoBehaviour:
   mouseSensitivity: 7
   sensitivityMultiplier: 0.1
   playerCamera: {fileID: 756982425}
+  cameraLockControl: 0
 --- !u!1 &1120204733
 GameObject:
   m_ObjectHideFlags: 0

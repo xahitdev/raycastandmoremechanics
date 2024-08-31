@@ -19,23 +19,22 @@ public class InspectManager : MonoBehaviour, IInteractable
 
     private void ItemInspect()
     {
+        CameraController.isCameraActive.cameraLockControl = true;   
+        // Camera.main.transform.LookAt(this.gameObject.transform.position);
         if (!isInspecting)
         {
-            Camera.main.transform.rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             Camera.main.fieldOfView = zoomedFOV;
-            cameraScript.enabled = false;
             isInspecting = true;
         }
         else
         {
-            Camera.main.transform.rotation = Quaternion.Euler(0, Camera.main.transform.eulerAngles.y, 0);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Camera.main.fieldOfView = defaultFOV;
-            cameraScript.enabled = true;
             isInspecting = false;
+            CameraController.isCameraActive.cameraLockControl = false;   
         }
     }
 }

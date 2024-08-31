@@ -170,6 +170,10 @@ public class PlayerMovement : MonoBehaviour
 
         speed = isCrouching ? crouchedPlayerSpeed : standPlayerSpeed;
 
+        //MAKE IS SMOOTHER 
+        characterController.center = isCrouching ? new Vector3(0,0,0) : new Vector3(0,0,0);
+        //MAKE IS SMOOTHER 
+
         //CROUCING MANAGER
 
         float targetHeight = isCrouching ? crouchedHeight : playerHeight;

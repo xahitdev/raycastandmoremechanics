@@ -11,7 +11,14 @@ public class CameraController : MonoBehaviour
     public Transform playerCamera;
     // Start is called before the first frame update
     private float xRotation = 0f;
+    public bool cameraLockControl = false;
+    public static CameraController isCameraActive;
 
+    private void Awake() {
+        if(isCameraActive == null){
+            isCameraActive = this;
+        }
+    }
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -20,6 +27,9 @@ public class CameraController : MonoBehaviour
     }
     void Update()
     {
+        if(cameraLockControl){
+            return;
+        }
         CameraLook();
     }
     public void CameraLook()
