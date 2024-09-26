@@ -4,42 +4,41 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using DG.Tweening;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class DoorController : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform doorPivot;
     [SerializeField] private float doorRotation; //usually being 90 degree 
     bool doorState = false;
+    bool isTriggered = false;
     private float doorSpeed = 2;
     public void Interact()
     {
-        Door();
+        DoorMech();
     }
-    private void Door()
+    private void DoorMech()
     {
+        if (isTriggered) return;
+
+        isTriggered = true;
+
         if (!doorState)
         {
-            DoorOpen();
+            float targetRotY = doorPivot.transform.eulerAngles.y + 90;
+            float rotX = doorPivot.transform.eulerAngles.x;
+            float rotY = doorPivot.transform.eulerAngles.y;
+            float rotZ = doorPivot.transform.eulerAngles.z;
+            doorPivot.transform.DORotate(new Vector3(rotX, targetRotY, rotZ), doorSpeed, RotateMode.FastBeyond360).OnComplete(() => { doorState = true; isTriggered = false; });
         }
-        else if (doorState)
+        else
         {
-            DoorDefault();
+            float targetRotY = doorPivot.transform.eulerAngles.y - 90;
+            float rotX = doorPivot.transform.eulerAngles.x;
+            float rotY = doorPivot.transform.eulerAngles.y;
+            float rotZ = doorPivot.transform.eulerAngles.z;
+            doorPivot.transform.DORotate(new Vector3(rotX, targetRotY, rotZ), doorSpeed, RotateMode.FastBeyond360).OnComplete(() => { doorState = false; isTriggered = false; });
         }
-    }
-    private void DoorOpen()
-    {
-        float rotX = doorPivot.transform.eulerAngles.x;
-        float rotY = doorPivot.transform.eulerAngles.y;
-        float rotZ = doorPivot.transform.eulerAngles.z;
-        doorPivot.transform.DORotate(new Vector3(rotX, rotY + 90, rotZ), doorSpeed, RotateMode.FastBeyond360);
-        doorState = true;
-    }
-    private void DoorDefault()
-    {
-        float rotX = doorPivot.transform.eulerAngles.x;
-        float rotY = doorPivot.transform.eulerAngles.y;
-        float rotZ = doorPivot.transform.eulerAngles.z;
-        doorPivot.transform.DORotate(new Vector3(rotX, rotY - 90, rotZ), doorSpeed, RotateMode.FastBeyond360);
-        doorState = false;
+
     }
 }

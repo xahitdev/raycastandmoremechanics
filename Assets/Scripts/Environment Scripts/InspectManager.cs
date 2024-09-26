@@ -19,7 +19,7 @@ public class InspectManager : MonoBehaviour, IInteractable
 
     private void ItemInspect()
     {
-        CameraController.isCameraActive.cameraLockControl = true;   
+        CameraController.isCameraActive.cameraLockControl = true;
         // Camera.main.transform.LookAt(this.gameObject.transform.position);
         if (!isInspecting)
         {
@@ -34,7 +34,11 @@ public class InspectManager : MonoBehaviour, IInteractable
             Cursor.visible = false;
             Camera.main.fieldOfView = defaultFOV;
             isInspecting = false;
-            CameraController.isCameraActive.cameraLockControl = false;   
+            CameraController.isCameraActive.cameraLockControl = false;
         }
+    }
+    private void Spawn()
+    {
+
     }
 }
